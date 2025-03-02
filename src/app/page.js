@@ -1,3 +1,4 @@
+// Main Dashboard Page
 import Image from 'next/image';
 import GameCalendar from './Components/GameCalendar';
 
