@@ -1,4 +1,5 @@
-// Main Dashboard Page
+'use client';
+
 import Image from 'next/image';
 import GameCalendar from './Components/GameCalendar';
 

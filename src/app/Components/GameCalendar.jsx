@@ -2,12 +2,12 @@
 
 import React, { useState } from 'react';
 
-// Sample game data - replace with real data later
+// Sample game data - Mock Data for Demo
 const SAMPLE_GAMES = [
     {
         id: 1,
-        opponent: 'Michigan State',
-        date: '2024-08-31',
+        opponent: 'Colorado State',
+        date: '2025-08-30',
         time: '3:30 PM',
         location: 'Husky Stadium',
         isHome: true,
@@ -15,22 +15,104 @@ const SAMPLE_GAMES = [
     },
     {
         id: 2,
-        opponent: 'Oregon',
-        date: '2024-09-14',
+        opponent: 'UC Davis',
+        date: '2024-09-06',
         time: '7:00 PM',
         location: 'Husky Stadium',
         isHome: true,
-        week: 3
+        week: 2
     },
     {
         id: 3,
-        opponent: 'USC',
-        date: '2024-09-28',
+        opponent: 'Washington State',
+        date: '2024-09-20',
         time: '4:00 PM',
-        location: 'Los Angeles Memorial Coliseum',
+        location: 'Pullman, WA',
+        isHome: false,
+        week: 3
+    },
+    {
+        id: 4,
+        opponent: 'Ohio State',
+        date: '2024-09-27',
+        time: '12:00 PM',
+        location: 'Husky Stadium',
+        isHome: true,
+        week: 4
+    },
+    {
+        id: 5,
+        opponent: 'Maryland',
+        date: '2024-10-04',
+        time: '12:00 PM',
+        location: 'College Park, MD',
         isHome: false,
         week: 5
     },
+    {
+        id: 6,
+        opponent: 'Rutgers',
+        date: '2024-10-11',
+        time: '12:00 PM',
+        location: 'Husky Stadium',
+        isHome: true,
+        week: 6
+    },
+    {
+        id: 7,
+        opponent: 'Michigan',
+        date: '2024-10-18',
+        time: '12:00 PM',
+        location: 'Ann Arbor, MI',
+        isHome: false,
+        week: 7
+    },
+    {
+        id: 8,
+        opponent: 'Illinois',
+        date: '2024-10-25',
+        time: '12:00 PM',
+        location: 'Husky Stadium',
+        isHome: true,
+        week: 8
+    },
+    {
+        id: 9,
+        opponent: 'Wisconsin',
+        date: '2024-11-08',
+        time: '12:00 PM',
+        location: 'Madison, WI',
+        isHome: false,
+        week: 9
+    },
+    {
+        id: 10,
+        opponent: 'Purdue',
+        date: '2024-11-15',
+        time: '12:00 PM',
+        location: 'Husky Stadium',
+        isHome: true,
+        week: 10
+    },
+    {
+        id: 11,
+        opponent: 'UCLA',
+        date: '2024-11-22',
+        time: '12:00 PM',
+        location: 'Pasadena, CA',
+        isHome: false,
+        week: 11
+    },
+    {
+        id: 12,
+        opponent: 'Oregon',
+        date: '2024-11-29',
+        time: '12:00 PM',
+        location: 'Husky Stadium',
+        isHome: true,
+        week: 12
+    }
+    
 ];
 
 const GameCalendar = () => {
