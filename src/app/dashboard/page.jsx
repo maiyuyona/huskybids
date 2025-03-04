@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import GameCalendar from '../Components/GameCalendar';
-import { SAMPLE_GAMES } from '../../app/data/games';
+import { SAMPLE_GAMES } from '../data/games';
 import { useState } from 'react';
 
 export default function Dashboard() {
