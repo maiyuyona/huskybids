@@ -1,11 +1,11 @@
 "use client";
-import { useState } from 'react';
-import SettingsSidebar from '../components/SettingsSidebar/SettingsSidebar';
-import styles from './TestSidebar.module.css';
+import { useState } from "react";
+import SettingsSidebar from "../components/SettingsSidebar/SettingsSidebar";
+import styles from "./TestSidebar.module.css";
 
 const TestSidebar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [username, setUsername] = useState('Dubs'); // Local state for username
+  const [username, setUsername] = useState("Dubs"); // Local state for username
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -19,7 +19,9 @@ const TestSidebar = () => {
           <button className={styles.toggleButton} onClick={toggleSidebar}>
             <div className={styles.grayCircle}></div>
           </button>
-          <p className={styles.toggleText} onClick={toggleSidebar}>Toggle Sidebar</p>
+          <p className={styles.toggleText} onClick={toggleSidebar}>
+            Toggle Sidebar
+          </p>
         </div>
       )}
 
