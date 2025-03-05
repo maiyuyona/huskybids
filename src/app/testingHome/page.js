@@ -50,12 +50,10 @@ const FrameHome = () => {
     }
   };
 
-  
-
   return (
-    <div className="bg-[#4b2e83] flex w-full min-h-screen relative">
+    <div className="bg-[#4b2e83] flex w-full min-h-screen relative overflow-hidden">
       {/* Left Menu */}
-      <div className="w-[20%] bg-[#3a2365] p-6 text-white rounded-r-2xl shadow-lg">
+      <div className="w-[20%] bg-[#3a2365] p-6 text-white rounded-r-2xl overflow-hidden">
         <h2 className="text-xl font-bold mb-4">Left Menu</h2>
         <ul className="space-y-2">
           <li className="hover:text-[#c5b4e3] cursor-pointer">Menu Item 1</li>
@@ -64,16 +62,9 @@ const FrameHome = () => {
         </ul>
       </div>
 
-      {/* Center Content */}
-      <div className="flex flex-col items-center w-[60%] py-8 ml-10 mr-10">
-
-        <div className="flex items-end w-full mb-8 [font-family:'Encode_Sans-Medium',Helvetica] font-medium text-light-purple">
-          <div className="relative flex items center w-full ">
-
-          </div>
-        </div>
-
-        {/* scrollable date bar start */}
+      {/* Center Content - Scrollable Only This Section */}
+      <div className="flex flex-col items-center w-[60%] py-8 ml-10 mr-10 overflow-y-scroll h-screen">
+        {/* Scrollable Date Bar */}
         <div className="relative flex items-center justify-center mb-8 w-full">
           <button onClick={() => scroll("left")} className="absolute left-0 z-10">
             <ChevronLeft size={32} color="#c5b4e3" />
@@ -106,9 +97,8 @@ const FrameHome = () => {
             <ChevronRight size={32} color="#c5b4e3" />
           </button>
         </div>
-        {/* scrollable date bar end */}
 
-        <div className="text-center text-white text-2xl mb-8">
+        <div className="text-start text-white text-2xl mb-8">
           Events for {selectedDate.format("MMMM DD, YYYY")}
         </div>
 
@@ -120,7 +110,7 @@ const FrameHome = () => {
       </div>
 
       {/* Right Menu */}
-      <div className="w-[20%] bg-primary-purple p-6 text-white rounded-l-2xl shadow-lg">
+      <div className="w-[20%] bg-primary-purple p-6 text-white rounded-l-2xl overflow-hidden">
         <h2 className="text-xl font-bold mb-4">Right Menu</h2>
         <ul className="space-y-2">
           <li className="hover:text-[#c5b4e3] cursor-pointer">Menu Item A</li>
