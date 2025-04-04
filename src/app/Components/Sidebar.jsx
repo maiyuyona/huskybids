@@ -38,7 +38,7 @@ const Sidebar = ({ biscuits = 1000 }) => {
             onClick={claimDailyBonus}
             className="w-full bg-purple-600 text-white py-2 rounded hover:bg-purple-700 transition-colors text-sm"
           >
-            Claim 100 Biscuits
+            Claim Free 100 Biscuits
           </button>
         </div>
       )}
@@ -48,7 +48,8 @@ const Sidebar = ({ biscuits = 1000 }) => {
         <ul className="space-y-4">
           <li>
             <Link
-              href="/"
+              href="/testingHome" //This Link thing can help me link to other pages so on click when I click Dashbaord then it goes to the right
+              //dashboard
               className="flex items-center space-x-2 p-2 rounded hover:bg-yellow-300 transition-colors font-medium"
             >
               <span className="material-icons">dashboard</span>
