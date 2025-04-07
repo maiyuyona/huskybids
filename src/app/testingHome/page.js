@@ -57,10 +57,10 @@ const FrameHome = () => {
         <h2 className="text-xl font-bold mb-4"></h2>
         <ul className="space-y-5">
           <li className="hover:text-[#c5b4e3] cursor-pointer">HuskyBids</li>
-           <li className="hover:text-[#c5b4e3] cursor-pointer">Menu Item 2</li>
-          <li className="hover:text-[#c5b4e3] cursor-pointer">Menu Item 3</li>
+          <li className="hover:text-[#c5b4e3] cursor-pointer">Dashboard</li>
+          <li className="hover:text-[#c5b4e3] cursor-pointer">New bid</li>
+          <li className="hover:text-[#c5b4e3] cursor-pointer">Biscuit Tasks</li>
         </ul>
-          
       </div>
 
       {/* Center Content - Scrollable Only This Section */}
