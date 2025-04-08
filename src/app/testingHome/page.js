@@ -51,11 +51,9 @@ const FrameHome = () => {
   };
 
   return (
-    <div className="bg-[#4b2e83] flex w-full min-h-screen relative overflow-hidden">
-      
-
-      {/* Center Content - Scrollable Only This Section */}
-      <div className="flex flex-col items-center w-[60%] py-8 ml-10 mr-10 overflow-y-scroll h-screen">
+    <div className="flex w-full h-screen overflow-hidden">
+      {/* Main Content Area - Scrollable and Centered */}
+      <div className="flex flex-col items-center w-[80%] py-8 overflow-y-auto mx-auto pr-[20%]">
         {/* Scrollable Date Bar */}
         <div className="relative flex items-center justify-center mb-8 w-full">
           <button onClick={() => scroll("left")} className="absolute left-0 z-10">
@@ -101,8 +99,8 @@ const FrameHome = () => {
         </div>
       </div>
 
-      {/* Right Menu */}
-      <div className="w-[20%] bg-primary-purple p-6 text-white rounded-l-2xl overflow-hidden">
+      {/* Right Menu - Fixed */}
+      <div className="w-[20%] bg-primary-purple p-6 text-white rounded-l-2xl overflow-hidden fixed right-0 top-0 h-screen">
         <h2 className="text-xl font-bold mb-4">right side stuff</h2>
         <ul className="space-y-2">
           <li className="hover:text-[#c5b4e3] cursor-pointer">betting history</li>
