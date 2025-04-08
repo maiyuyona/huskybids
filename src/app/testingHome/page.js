@@ -52,17 +52,6 @@ const FrameHome = () => {
 
   return (
     <div className="bg-[#4b2e83] flex w-full min-h-screen relative overflow-hidden">
-      {/* Left Menu */}
-      <div className="w-[20%] bg-[#3a2365] p-6 text-white rounded-r-2xl overflow-hidden">
-        <h2 className="text-xl font-bold mb-4"></h2>
-        <ul className="space-y-5">
-          <li className="hover:text-[#c5b4e3] cursor-pointer">HuskyBids</li>
-          <li className="hover:text-[#c5b4e3] cursor-pointer">Dashboard</li>
-          <li className="hover:text-[#c5b4e3] cursor-pointer">New bid</li>
-          <li className="hover:text-[#c5b4e3] cursor-pointer">Biscuit Tasks</li>
-        </ul>
-      </div>
-
       {/* Center Content - Scrollable Only This Section */}
       <div className="flex flex-col items-center w-[60%] py-8 ml-10 mr-10 overflow-y-scroll h-screen">
         {/* Scrollable Date Bar */}
@@ -109,25 +98,6 @@ const FrameHome = () => {
           </div>
         </div>
       </div>
-
-      {/* Right Menu */}
-      <div className="w-[20%] bg-primary-purple p-6 text-white rounded-l-2xl overflow-hidden">
-        <h2 className="text-xl font-bold mb-4">Profile</h2>
-        <ul className="space-y-2">
-          <li className="hover:text-[#c5b4e3] cursor-pointer">Settings</li>
-          <li className="hover:text-[#c5b4e3] cursor-pointer">...</li>
-          <li className="hover:text-[#c5b4e3] cursor-pointer">...</li>
-        </ul>
-      </div>
-
-      <style jsx>{`
-        .scrollbar-hide::-webkit-scrollbar {
-          display: none;
-        }
-        .scroll-snap-align-center {
-          scroll-snap-align: center;
-        }
-      `}</style>
     </div>
   );
 };
