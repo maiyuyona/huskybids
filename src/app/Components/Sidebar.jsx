@@ -4,10 +4,37 @@ import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import BiscuitIcon from "./BiscuitIcon";
+import { usePathname } from 'next/navigation';
 
 const Sidebar = ({ biscuits = 1000 }) => {
   // Default starting balance of 1000 biscuits
   const [showDailyBonus, setShowDailyBonus] = useState(true);
+
+  // Get current route
+  const pathname = usePathname();
+
+  // Function to determine if a link is active
+  const isActivePath = (path) => pathname === path;
+
+  // Get background color based on path
+  const getBackgroundColor = (path) => {
+    if (!isActivePath(path)) return 'hover:bg-yellow-300';
+    
+    switch (path) {
+      case '/testingHome':
+        return 'bg-[#4b2e83] text-white';
+      case '/dashboard':
+        return 'bg-gray-50';
+      case '/new-bid':
+        return 'bg-[#4b2e83] text-white';
+      case '/tasks':
+        return 'bg-[#4b2e83] text-white';
+      case '/leaderboard':
+        return 'bg-[#4b2e83] text-white';
+      default:
+        return 'bg-yellow-300';
+    }
+  };
 
   const claimDailyBonus = () => {
     setShowDailyBonus(false);
@@ -48,9 +75,8 @@ const Sidebar = ({ biscuits = 1000 }) => {
         <ul className="space-y-4">
           <li>
             <Link
-              href="/testingHome" //This Link thing can help me link to other pages so on click when I click Dashbaord then it goes to the right
-              //dashboard
-              className="flex items-center space-x-2 p-2 rounded hover:bg-yellow-300 transition-colors font-medium"
+              href="/testingHome"
+              className={`flex items-center space-x-2 p-2 rounded transition-colors font-medium ${getBackgroundColor('/testingHome')}`}
             >
               <span className="material-icons">dashboard</span>
               <span>Dashboard</span>
@@ -59,7 +85,7 @@ const Sidebar = ({ biscuits = 1000 }) => {
           <li>
             <Link
               href="/new-bid"
-              className="flex items-center space-x-2 p-2 rounded hover:bg-yellow-300 transition-colors font-medium"
+              className={`flex items-center space-x-2 p-2 rounded transition-colors font-medium ${getBackgroundColor('/new-bid')}`}
             >
               <span className="material-icons">add_circle</span>
               <span>New Bid</span>
@@ -68,7 +94,7 @@ const Sidebar = ({ biscuits = 1000 }) => {
           <li>
             <Link
               href="/tasks"
-              className="flex items-center space-x-2 p-2 rounded hover:bg-yellow-300 transition-colors font-medium"
+              className={`flex items-center space-x-2 p-2 rounded transition-colors font-medium ${getBackgroundColor('/tasks')}`}
             >
               <span className="material-icons">task</span>
               <span>Tasks</span>
@@ -77,7 +103,7 @@ const Sidebar = ({ biscuits = 1000 }) => {
           <li>
             <Link
               href="/leaderboard"
-              className="flex items-center space-x-2 p-2 rounded hover:bg-yellow-300 transition-colors font-medium"
+              className={`flex items-center space-x-2 p-2 rounded transition-colors font-medium ${getBackgroundColor('/leaderboard')}`}
             >
               <span className="material-icons">leaderboard</span>
               <span>Leaderboard</span>

@@ -17,7 +17,7 @@ const LoginTesting = () => {
             </button>
           </SignInButton>
           <SignUpButton mode="modal">
-            <button className="bg-green-500 text-white px-4 py-2 rounded-lg">
+            <button className="bg-gr'e'en-500 text-white px-4 py-2 rounded-lg">
               Sign Up
             </button>
           </SignUpButton>
