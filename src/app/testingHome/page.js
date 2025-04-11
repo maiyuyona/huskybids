@@ -51,19 +51,9 @@ const FrameHome = () => {
   };
 
   return (
-    <div className="bg-[#4b2e83] flex w-full min-h-screen relative overflow-hidden">
-      {/* Left Menu */}
-      <div className="w-[20%] bg-[#3a2365] p-6 text-white rounded-r-2xl overflow-hidden">
-        <h2 className="text-xl font-bold mb-4">Left Menu</h2>
-        <ul className="space-y-2">
-          <li className="hover:text-[#c5b4e3] cursor-pointer">Menu Item 1</li>
-          <li className="hover:text-[#c5b4e3] cursor-pointer">Menu Item 2</li>
-          <li className="hover:text-[#c5b4e3] cursor-pointer">Menu Item 3</li>
-        </ul>
-      </div>
-
-      {/* Center Content - Scrollable Only This Section */}
-      <div className="flex flex-col items-center w-[60%] py-8 ml-10 mr-10 overflow-y-scroll h-screen">
+    <div className="flex w-full h-screen overflow-hidden">
+      {/* Main Content Area - Scrollable and Centered */}
+      <div className="flex flex-col items-center w-[80%] py-8 overflow-y-auto mx-auto pr-[20%]">
         {/* Scrollable Date Bar */}
         <div className="relative flex items-center justify-center mb-8 w-full">
           <button onClick={() => scroll("left")} className="absolute left-0 z-10">
@@ -89,7 +79,7 @@ const FrameHome = () => {
                     : "text-[#c5b4e3] hover:bg-[#5c3a94]"
                 }`}
               >
-                {date.format("MMM DD").toLowerCase()}
+                {date.format("MMM DD")}
               </div>
             ))}
           </div>
@@ -104,18 +94,18 @@ const FrameHome = () => {
 
         <div className="bg-[#4b2e83] overflow-hidden w-full max-w-[1360px] h-[857px] relative rounded-2xl border-4 border-[#c5b4e3]">
           <div className="absolute w-full text-center top-1/2 transform -translate-y-1/2 text-white text-xl">
-            Content related to {selectedDate.format("MMM DD").toLowerCase()} will be displayed here.
+            Content related to {selectedDate.format("MMM DD")} will be displayed here.
           </div>
         </div>
       </div>
 
-      {/* Right Menu */}
-      <div className="w-[20%] bg-primary-purple p-6 text-white rounded-l-2xl overflow-hidden">
-        <h2 className="text-xl font-bold mb-4">Right Menu</h2>
+      {/* Right Menu - Fixed */}
+      <div className="w-[20%] bg-primary-purple p-6 text-white rounded-l-2xl overflow-hidden fixed right-0 top-0 h-screen">
+        <h2 className="text-xl font-bold mb-4">right side stuff</h2>
         <ul className="space-y-2">
-          <li className="hover:text-[#c5b4e3] cursor-pointer">Menu Item A</li>
-          <li className="hover:text-[#c5b4e3] cursor-pointer">Menu Item B</li>
-          <li className="hover:text-[#c5b4e3] cursor-pointer">Menu Item C</li>
+          <li className="hover:text-[#c5b4e3] cursor-pointer">betting history</li>
+          <li className="hover:text-[#c5b4e3] cursor-pointer">...</li>
+          <li className="hover:text-[#c5b4e3] cursor-pointer">...</li>
         </ul>
       </div>
 
