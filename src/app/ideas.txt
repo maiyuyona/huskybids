@@ -2,3 +2,4 @@
 2) Get rid of the left side bar
 3) fix profile staying there.
 4) make the right side bar pop out when we click the profile
+ 
