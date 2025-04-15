@@ -5,9 +5,6 @@ import Link from "next/link";
 import Image from "next/image";
 import BiscuitIcon from "./BiscuitIcon";
 import { usePathname } from 'next/navigation';
-import { useUser } from "@clerk/nextjs";
-import { useMutation, useQuery } from "convex/react";
-import { api } from "@/convex/_generated/api";
 
 
 const Sidebar = ({ biscuits = 1000 }) => {
