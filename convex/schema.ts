@@ -1,7 +1,8 @@
-import { defineSchema, v } from "convex/schema";
+import { defineSchema, defineTable } from "convex/server";
+import { v } from "convex/values";
 
 export default defineSchema({
-  games: v.object({
+  games: defineTable({
     name: v.string(),
     startTime: v.number(), // UNIX timestamp
     teamA: v.string(),
