@@ -1,10 +1,11 @@
-"use client";
+ "use client";
 
 import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import BiscuitIcon from "./BiscuitIcon";
 import { usePathname } from 'next/navigation';
+
 
 const Sidebar = ({ biscuits = 1000 }) => {
   // Default starting balance of 1000 biscuits
