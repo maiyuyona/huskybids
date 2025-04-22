@@ -15,4 +15,13 @@ export default defineSchema({
       v.literal("finished")
     ),
   }),
+
+  bet: defineTable({
+    gameId: v.id("games"),
+    userId: v.id("users"),
+    team: v.string(),
+    biscuits: v.number(),
+    payout: v.number(),
+    odds: v.number(),
+  })
 });
