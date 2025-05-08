@@ -112,7 +112,6 @@ const SAMPLE_GAMES = [
         isHome: true,
         week: 12
     }
-    
 ];
 
 const GameCalendar = () => {
@@ -212,4 +211,4 @@ const GameCalendar = () => {
     );
 };
 
-export default GameCalendar; 
+export default GameCalendar;

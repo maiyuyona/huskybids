@@ -73,7 +73,7 @@
   background-color: #e6c926;
 }
 
-/* .logoutButton {
+.logoutButton {
   width: 100%;
   padding: 8px 16px;
   background-color: transparent;
@@ -82,19 +82,18 @@
   cursor: pointer;
   text-align: left;
   font-size: 1em;
-  color: #333; 
+  color: #333;
   margin-top: 10px;
-  transition: all 0.2s ease; 
+  transition: all 0.2s ease;
 }
 
 .logoutButton:hover {
   background-color: transparent;
   color: #333;
   box-shadow: 0 0 0 2px black;
-} */
+}
 
 .menu li a:hover,
-
 .menu li button:hover {
   color: #333;
   background-color: transparent;
