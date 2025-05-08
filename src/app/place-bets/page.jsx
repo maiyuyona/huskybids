@@ -11,11 +11,15 @@ import {
   FiCheck, FiX
 } from 'react-icons/fi';
 
-// Same sidebar links used in dashboard and betting history
+// Update sidebar links to have Place Bets and Leaderboard as separate, and Profile/Settings at bottom
 const sidebarLinks = [
   { label: 'Dashboard', href: '/dashboard', icon: <FiHome className="w-5 h-5" /> },
   { label: 'Betting History', href: '/betting-history', icon: <FiClipboard className="w-5 h-5" /> },
-  { label: 'Place Bets', href: '/place-bets', icon: <FiAward className="w-5 h-5" /> },
+  { label: 'Place Bets', href: '/place-bets', icon: <FiDollarSign className="w-5 h-5" /> },
+  { label: 'Leaderboard', href: '/leaderboard', icon: <FiAward className="w-5 h-5" /> },
+];
+
+const accountLinks = [
   { label: 'Profile', href: '/profile', icon: <FiUser className="w-5 h-5" /> },
   { label: 'Settings', href: '/settings', icon: <FiSettings className="w-5 h-5" /> },
 ];
@@ -178,9 +182,36 @@ export default function PlaceBets() {
         <div className="w-24 h-1 bg-gradient-to-r from-yellow-400 to-yellow-200 rounded-full mt-2"></div>
       </div>
 
-      <nav className="flex-1 mt-8">
-        <ul className="space-y-1">
+      <nav className="flex-1">
+        <h3 className="px-4 text-xs font-semibold uppercase tracking-wider text-purple-300 mb-2">Main</h3>
+        <ul className="space-y-1 mb-8">
           {sidebarLinks.map(link => {
+            const isActive = currentPath === link.href;
+            return (
+              <li key={link.href}>
+                <Link
+                  href={link.href}
+                  className={`
+                    flex items-center px-4 py-3 rounded-lg
+                    transition-all duration-200
+                    ${isActive 
+                      ? 'bg-purple-700 text-white font-bold shadow-md' 
+                      : 'hover:bg-purple-800 text-purple-100'
+                    }
+                  `}
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  <span className="mr-3">{link.icon}</span>
+                  <span>{link.label}</span>
+                  {isActive && <FiChevronRight className="ml-auto" />}
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+        <h3 className="px-4 text-xs font-semibold uppercase tracking-wider text-purple-300 mb-2">Account</h3>
+        <ul className="space-y-1">
+          {accountLinks.map(link => {
             const isActive = currentPath === link.href;
             return (
               <li key={link.href}>

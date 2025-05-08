@@ -1,5 +1,6 @@
 import './globals.css';
 import { Inter } from 'next/font/google';
+import { ClerkProvider } from '@clerk/nextjs';
 import { BiscuitProvider } from './context/BiscuitContext';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -17,9 +18,11 @@ export default function RootLayout({ children }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
       <body className={inter.className}>
-        <BiscuitProvider>
-          {children}
-        </BiscuitProvider>
+        <ClerkProvider>
+          <BiscuitProvider>
+            {children}
+          </BiscuitProvider>
+        </ClerkProvider>
       </body>
     </html>
   );
