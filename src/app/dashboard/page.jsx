@@ -1,110 +1,55 @@
 'use client';
 
+import { useState, useEffect, Suspense, lazy } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
-import { useState, useEffect } from 'react';
-import GameCalendar from '../Components/GameCalendar';
-import { FiHome, FiClipboard, FiSettings, FiChevronRight, FiUser, FiAward } from 'react-icons/fi';
+import { FiChevronRight } from 'react-icons/fi';
+import { useBiscuits } from '../context/BiscuitContext';
 
-const sidebarLinks = [
-  { label: 'Dashboard', href: '/dashboard', icon: <FiHome className="w-5 h-5" /> },
-  { label: 'Betting History', href: '/betting-history', icon: <FiClipboard className="w-5 h-5" /> },
-  { label: 'Leaderboard', href: '/leaderboard', icon: <FiAward className="w-5 h-5" /> },
-  { label: 'Profile', href: '/profile', icon: <FiUser className="w-5 h-5" /> },
-  { label: 'Settings', href: '/settings', icon: <FiSettings className="w-5 h-5" /> },
-];
+// Import shared components
+import Sidebar from '../Components/Sidebar';
+import MobileHeader from '../Components/MobileHeader';
+
+// Lazy load the GameCalendar component
+const GameCalendar = lazy(() => import('../Components/GameCalendar'));
+
+// Loading component for suspended content
+const LoadingCalendar = () => (
+  <div className="w-full h-64 bg-white/70 rounded-lg flex items-center justify-center">
+    <div className="w-10 h-10 border-4 border-purple-200 border-t-purple-800 rounded-full animate-spin"></div>
+  </div>
+);
 
 export default function Dashboard() {
   const [currentPath, setCurrentPath] = useState('/dashboard');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isClient, setIsClient] = useState(false);
+  const { biscuitCount } = useBiscuits();
 
+  // Update path only on client-side
   useEffect(() => {
+    setIsClient(true);
     setCurrentPath(window.location.pathname);
   }, []);
+
+  // Don't render complex UI on server to avoid hydration issues
+  if (!isClient) {
+    return <div className="min-h-screen bg-purple-50"></div>;
+  }
 
   return (
     <div className="min-h-screen flex flex-col md:flex-row bg-white">
       {/* Mobile Menu Toggle */}
-      <div className="md:hidden fixed top-0 w-full bg-purple-950 z-50 px-4 py-3 flex justify-between items-center">
-        <div className="flex items-center">
-          <Image 
-            src="/images/logo.png" 
-            alt="HuskyBids" 
-            width={40} 
-            height={40} 
-            className="rounded-full"
-          />
-          <span className="text-white font-bold ml-2">HuskyBids</span>
-        </div>
-        <button 
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="text-white p-2"
-        >
-          {mobileMenuOpen ? "✕" : "☰"}
-        </button>
-      </div>
+      <MobileHeader 
+        mobileMenuOpen={mobileMenuOpen} 
+        setMobileMenuOpen={setMobileMenuOpen} 
+      />
 
-      {/* Sidebar - desktop always visible, mobile conditional */}
-      <aside className={`
-        ${mobileMenuOpen ? 'block' : 'hidden'} 
-        md:block fixed md:sticky top-0 z-40
-        w-64 h-screen
-        bg-gradient-to-b from-purple-950 to-purple-800 
-        text-white md:shadow-xl transition-all
-        pt-6 md:pt-8 px-4
-      `}>
-        {/* Logo and Branding */}
-        <div className="flex flex-col items-center mb-10">
-          <div className="relative w-32 h-32">
-            <Image
-              src="/images/logo.png"
-              alt="HuskyBids Logo"
-              fill
-              className="object-contain drop-shadow-lg"
-              priority
-            />
-          </div>
-          <h2 className="text-2xl font-black tracking-wider text-yellow-300 mt-3">
-            HUSKY<span className="text-white">BIDS</span>
-          </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-yellow-400 to-yellow-200 rounded-full mt-2"></div>
-        </div>
-
-        {/* Navigation */}
-        <nav className="flex-1 mt-8">
-          <ul className="space-y-1">
-            {sidebarLinks.map(link => {
-              const isActive = currentPath === link.href;
-              return (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className={`
-                      flex items-center px-4 py-3 rounded-lg
-                      transition-all duration-200
-                      ${isActive 
-                        ? 'bg-purple-700 text-white font-bold shadow-md' 
-                        : 'hover:bg-purple-800 text-purple-100'
-                      }
-                    `}
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    <span className="mr-3">{link.icon}</span>
-                    <span>{link.label}</span>
-                    {isActive && <FiChevronRight className="ml-auto" />}
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
-        </nav>
-
-        {/* Footer */}
-        <div className="mt-auto pb-6 pt-4 text-xs text-purple-300 text-center opacity-75">
-          <div className="w-full h-px bg-gradient-to-r from-transparent via-purple-400 to-transparent mb-4"></div>
-          &copy; {new Date().getFullYear()} HuskyBids
-        </div>
-      </aside>
+      {/* Sidebar - shared component */}
+      <Sidebar 
+        currentPath={currentPath} 
+        mobileMenuOpen={mobileMenuOpen} 
+        setMobileMenuOpen={setMobileMenuOpen} 
+      />
 
       {/* Main Content */}
       <main className="flex-1 min-h-screen bg-gradient-to-br from-purple-50 via-white to-yellow-50 md:ml-0 pt-16 md:pt-0">
@@ -122,7 +67,7 @@ export default function Dashboard() {
               <div className="mt-4 md:mt-0">
                 <div className="flex h-10 bg-white rounded-lg shadow-sm overflow-hidden">
                   <span className="flex items-center justify-center px-3 bg-purple-900 text-white font-bold">BISCUITS</span>
-                  <span className="flex items-center px-4 font-mono font-bold text-yellow-600">750</span>
+                  <span className="flex items-center px-4 font-mono font-bold text-yellow-600">{biscuitCount}</span>
                 </div>
               </div>
             </div>
@@ -164,7 +109,9 @@ export default function Dashboard() {
                 View All Games <FiChevronRight className="ml-1" />
               </button>
             </div>
-            <GameCalendar />
+            <Suspense fallback={<LoadingCalendar />}>
+              <GameCalendar />
+            </Suspense>
           </section>
 
           {/* Content Grid */}
