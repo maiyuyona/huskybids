@@ -6,8 +6,9 @@ import Image from "next/image";
 import BiscuitIcon from "./BiscuitIcon";
 import { usePathname } from 'next/navigation';
 
-const Sidebar = ({ biscuits = 1000 }) => {
-  // Default starting balance of 1000 biscuits
+const Sidebar = () => {
+  // Initialize biscuit balance in state
+  const [biscuits, setBiscuits] = useState(1000);
   const [showDailyBonus, setShowDailyBonus] = useState(true);
 
   // Get current route
@@ -19,7 +20,7 @@ const Sidebar = ({ biscuits = 1000 }) => {
   // Get background color based on path
   const getBackgroundColor = (path) => {
     if (!isActivePath(path)) return 'hover:bg-yellow-300';
-    
+
     switch (path) {
       case '/testingHome':
         return 'bg-[#4b2e83] text-white';
@@ -37,8 +38,8 @@ const Sidebar = ({ biscuits = 1000 }) => {
   };
 
   const claimDailyBonus = () => {
+    setBiscuits((prevBiscuits) => prevBiscuits + 100);
     setShowDailyBonus(false);
-    // In a real app, this would update the user's balance in the database
     alert("Daily bonus of 100 Biscuits claimed!");
   };
 
