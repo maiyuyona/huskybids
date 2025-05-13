@@ -2,12 +2,21 @@
 
 import React, { useState } from "react";
 import { SAMPLE_GAMES, HISTORICAL_DATA } from "../data/games";
+import { useUser } from '@clerk/nextjs';
+import { useEffect } from 'react';
 
 const NewBidPage = () => {
+  const { user } = useUser();
   const [selectedGame, setSelectedGame] = useState(null);
   const [bidAmount, setBidAmount] = useState("");
   const [prediction, setPrediction] = useState("win"); // 'win' or 'lose'
 
+  useEffect(() => {
+    if (user) {
+      console.log('Your Clerk User ID:', user.id);
+    }
+  }, [user]);
+  
   const calculatePotentialWinnings = () => {
     if (!selectedGame || !bidAmount) return 0;
     const odds = HISTORICAL_DATA[selectedGame.opponent].odds;

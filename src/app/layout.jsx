@@ -1,6 +1,7 @@
 import "./globals.css";
 import Sidebar from "./Components/Sidebar";
 import { ClerkProvider } from "@clerk/nextjs";
+import { ConvexClientProvider } from "./ConvexClientProvider";
 
 export default function RootLayout({ children }) {
   return (
@@ -21,4 +22,4 @@ export default function RootLayout({ children }) {
       </html>
     </ClerkProvider>
   );
-}
+} 
