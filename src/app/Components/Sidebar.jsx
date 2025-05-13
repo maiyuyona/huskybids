@@ -5,19 +5,16 @@ import Link from "next/link";
 import Image from "next/image";
 import BiscuitIcon from "./BiscuitIcon";
 import { usePathname } from 'next/navigation';
+import { useBiscuit } from './BiscuitContext';
 
 const Sidebar = () => {
-  // Initialize biscuit balance in state
-  const [biscuits, setBiscuits] = useState(1000);
+  const { biscuits, setBiscuits } = useBiscuit();
   const [showDailyBonus, setShowDailyBonus] = useState(true);
 
-  // Get current route
   const pathname = usePathname();
 
-  // Function to determine if a link is active
   const isActivePath = (path) => pathname === path;
 
-  // Get background color based on path
   const getBackgroundColor = (path) => {
     if (!isActivePath(path)) return 'hover:bg-yellow-300';
 
@@ -45,7 +42,6 @@ const Sidebar = () => {
 
   return (
     <div className="fixed left-0 top-0 h-full w-64 bg-yellow-400 text-purple-900 p-6 flex flex-col shadow-lg">
-      {/* Logo/Header */}
       <div className="mb-8">
         <Link href="/" className="block">
           <Image
@@ -58,7 +54,6 @@ const Sidebar = () => {
         </Link>
       </div>
 
-      {/* Daily Bonus Alert */}
       {showDailyBonus && (
         <div className="mb-6 bg-white text-purple-900 p-3 rounded-lg shadow-md">
           <div className="font-semibold mb-2">Daily Bonus Available!</div>
@@ -71,7 +66,6 @@ const Sidebar = () => {
         </div>
       )}
 
-      {/* Navigation Links */}
       <nav className="flex-1">
         <ul className="space-y-4">
           <li>
@@ -113,7 +107,6 @@ const Sidebar = () => {
         </ul>
       </nav>
 
-      {/* Biscuit Balance */}
       <div className="border-t border-yellow-500 pt-4">
         <div className="flex items-center space-x-2">
           <BiscuitIcon size={24} />
