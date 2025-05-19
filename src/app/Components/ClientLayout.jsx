@@ -2,10 +2,7 @@
 
 import React, { useState } from 'react';
 import { UserButton, useUser } from '@clerk/nextjs';
-import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
-import { Button } from '@/components/ui/button';
-import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet"
-import { cn } from "@/lib/utils"
+import Image from 'next/image'; // Import Image
 import SettingsSidebarComponent from './SettingsSidebar/SettingsSidebar';
 import Sidebar from './Sidebar';
 
@@ -17,33 +14,23 @@ const ClientLayout = ({ children }) => {
   return (
     <div className="flex h-screen">
       {/* Sidebar */}
-      <Sidebar className="w-64"/>
+      <aside className="w-64 bg-yellow-400 text-purple-900 p-4 shadow-lg">
+        <Sidebar />
+      </aside>
 
       {/* Main Content Area */}
       <main className="flex-1 p-4 md:p-6 lg:p-8">
-        {/* Top Bar (for profile picture and potentially other elements) */}
+        {/* Top Bar */}
         <div className="flex justify-end mb-4 md:mb-6">
-          {/* Profile Picture / User Button */}
-          <Sheet open={isSettingsOpen} onOpenChange={setIsSettingsOpen}>
-            <SheetTrigger asChild>
-              <Button variant="ghost" className="rounded-full">
-                <Avatar className="w-10 h-10 md:w-12 md:h-12">
-                  <AvatarImage src={user?.imageUrl} alt="Profile" />
-                  <AvatarFallback>
-                    {user ? `${user.firstName?.charAt(0)}${user.lastName?.charAt(0)}` : '?'}
-                  </AvatarFallback>
-                </Avatar>
-              </Button>
-            </SheetTrigger>
-            <SheetContent side="right" className="bg-white w-full sm:max-w-sm">
-              <SheetTitle>Settings</SheetTitle>
-              <SettingsSidebarComponent
-                isSidebarOpen={isSettingsOpen}
-                toggleSidebar={setIsSettingsOpen}
-                username={user?.username || 'Guest'}
-              />
-            </SheetContent>
-          </Sheet>
+          <button onClick={toggleSettings} className="rounded-full focus:outline-none">
+            {user?.imageUrl ? (
+              <Image src={user?.imageUrl} alt="Profile" width={40} height={40} className="rounded-full" />
+            ) : (
+              <div className="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center">
+                {user ? `${user.firstName?.charAt(0)}${user.lastName?.charAt(0)}` : '?'}
+              </div>
+            )}
+          </button>
         </div>
 
         {/* Page Content */}
@@ -51,6 +38,16 @@ const ClientLayout = ({ children }) => {
           {children}
         </div>
       </main>
+
+      {/* Settings Sidebar (you'll need to style this with CSS) */}
+      <div className={`fixed top-0 right-0 h-full w-full sm:max-w-sm bg-white shadow-lg transform transition-transform duration-300 ease-in-out ${isSettingsOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+        <button onClick={toggleSettings} className="absolute top-4 left-4">Close</button>
+        <SettingsSidebarComponent
+          isSidebarOpen={isSettingsOpen}
+          toggleSidebar={setIsSettingsOpen}
+          username={user?.username || 'Guest'}
+        />
+      </div>
     </div>
   );
 };

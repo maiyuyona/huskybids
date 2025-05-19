@@ -6,6 +6,7 @@ import Image from "next/image";
 import BiscuitIcon from "./BiscuitIcon";
 import { usePathname } from 'next/navigation';
 import { useBiscuit } from './BiscuitContext';
+import styles from './Sidebar.module.css'; // Import the CSS module
 
 const Sidebar = () => {
   const { biscuits, setBiscuits } = useBiscuit();
@@ -16,21 +17,16 @@ const Sidebar = () => {
   const isActivePath = (path) => pathname === path;
 
   const getBackgroundColor = (path) => {
-    if (!isActivePath(path)) return 'hover:bg-yellow-300';
+    if (!isActivePath(path)) return ''; // No specific background on hover, handled by menuItem:hover
 
     switch (path) {
       case '/testingHome':
-        return 'bg-[#4b2e83] text-white';
-      case '/dashboard':
-        return 'bg-gray-50';
       case '/new-bid':
-        return 'bg-[#4b2e83] text-white';
       case '/tasks':
-        return 'bg-[#4b2e83] text-white';
       case '/leaderboard':
-        return 'bg-[#4b2e83] text-white';
+        return styles.active; // Apply the active style
       default:
-        return 'bg-yellow-300';
+        return '';
     }
   };
 
@@ -41,37 +37,37 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="fixed left-0 top-0 h-full w-64 bg-yellow-400 text-purple-900 p-6 flex flex-col shadow-lg">
-      <div className="mb-8">
+    <div className={styles.sidebar}>
+      <div className={styles.logoContainer}>
         <Link href="/" className="block">
           <Image
             src="/images/logo.png"
             alt="HuskyBids Logo"
             width={150}
             height={50}
-            className="mb-2"
+            className={styles.logoImage}
           />
         </Link>
       </div>
 
       {showDailyBonus && (
-        <div className="mb-6 bg-white text-purple-900 p-3 rounded-lg shadow-md">
-          <div className="font-semibold mb-2">Daily Bonus Available!</div>
+        <div className={styles.dailyBonusCard}>
+          <div className={styles.dailyBonusTitle}>Daily Bonus Available!</div>
           <button
             onClick={claimDailyBonus}
-            className="w-full bg-purple-600 text-white py-2 rounded hover:bg-purple-700 transition-colors text-sm"
+            className={styles.claimButton}
           >
             Claim Free 100 Biscuits
           </button>
         </div>
       )}
 
-      <nav className="flex-1">
-        <ul className="space-y-4">
+      <nav className={styles.menu}>
+        <ul>
           <li>
             <Link
               href="/testingHome"
-              className={`flex items-center space-x-2 p-2 rounded transition-colors font-medium ${getBackgroundColor('/testingHome')}`}
+              className={`${styles.menuItem} ${getBackgroundColor('/testingHome')}`}
             >
               <span className="material-icons">dashboard</span>
               <span>Dashboard</span>
@@ -80,7 +76,7 @@ const Sidebar = () => {
           <li>
             <Link
               href="/new-bid"
-              className={`flex items-center space-x-2 p-2 rounded transition-colors font-medium ${getBackgroundColor('/new-bid')}`}
+              className={`${styles.menuItem} ${getBackgroundColor('/new-bid')}`}
             >
               <span className="material-icons">add_circle</span>
               <span>New Bid</span>
@@ -89,7 +85,7 @@ const Sidebar = () => {
           <li>
             <Link
               href="/tasks"
-              className={`flex items-center space-x-2 p-2 rounded transition-colors font-medium ${getBackgroundColor('/tasks')}`}
+              className={`${styles.menuItem} ${getBackgroundColor('/tasks')}`}
             >
               <span className="material-icons">task</span>
               <span>Tasks</span>
@@ -98,7 +94,7 @@ const Sidebar = () => {
           <li>
             <Link
               href="/leaderboard"
-              className={`flex items-center space-x-2 p-2 rounded transition-colors font-medium ${getBackgroundColor('/leaderboard')}`}
+              className={`${styles.menuItem} ${getBackgroundColor('/leaderboard')}`}
             >
               <span className="material-icons">leaderboard</span>
               <span>Leaderboard</span>
@@ -107,14 +103,14 @@ const Sidebar = () => {
         </ul>
       </nav>
 
-      <div className="border-t border-yellow-500 pt-4">
-        <div className="flex items-center space-x-2">
+      <div className={styles.balanceContainer}>
+        <div className={styles.balanceInfo}>
           <BiscuitIcon size={24} />
           <div>
-            <div className="text-sm text-purple-900 opacity-75">
+            <div className={styles.balanceText}>
               Your Balance
             </div>
-            <div className="font-bold text-purple-900">{biscuits} Biscuits</div>
+            <div className={styles.balanceAmount}>{biscuits} Biscuits</div>
           </div>
         </div>
       </div>
