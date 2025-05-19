@@ -5,6 +5,7 @@ export default defineSchema({
   users: defineTable({
     clerkId: v.string(),
     biscuits: v.number(),
+    lastDailyBonusClaim: v.optional(v.number()), // Unix timestamp of the last claim
   }).index("by_clerkId", ["clerkId"]),
 
   games: defineTable({

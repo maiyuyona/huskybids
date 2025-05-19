@@ -60,7 +60,37 @@ export const createUser = mutation({
       return existingUser._id;
     }
 
-    return await ctx.db.insert("users", { clerkId: args.clerkId, biscuits: 1000 }); // Initial biscuits
+    return await ctx.db.insert("users", { clerkId: args.clerkId, biscuits: 1000, lastDailyBonusClaim: 0 }); // Initialize to 0
+  },
+});
+
+// Mutation to claim the daily biscuit bonus
+export const claimDailyBonus = mutation({
+  handler: async (ctx) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      throw new ConvexError("User not authenticated.");
+    }
+
+    const user = await ctx.db
+      .query("users")
+      .filter((u) => u.eq(u.field("clerkId"), identity.subject))
+      .first();
+
+    if (!user) {
+      throw new ConvexError("User not found.");
+    }
+
+    const now = Date.now();
+    const lastClaim = user.lastDailyBonusClaim || 0;
+    const oneDay = 24 * 60 * 60 * 1000;
+
+    if (now - lastClaim < oneDay) {
+      throw new ConvexError("Daily bonus already claimed today.");
+    }
+
+    await ctx.db.patch(user._id, { biscuits: user.biscuits + 100, lastDailyBonusClaim: now });
+    return { newBalance: user.biscuits + 100 };
   },
 });
 
