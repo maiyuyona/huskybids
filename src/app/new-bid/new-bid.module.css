@@ -1,0 +1,200 @@
+/* src/app/new-bid/new-bid.module.css */
+.container {
+    background-color: #371d63; /* Dark purple background */
+    min-height: 100vh;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .header {
+    background-color: rgba(245, 179, 0, 0.1); /* Light golden yellow header */
+    border-radius: 0.5rem;
+    padding: 1.5rem 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    text-align: center;
+  }
+  
+  .title {
+    color: #f5b300; /* Golden yellow title */
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 2rem;
+  }
+  
+  .bidSection {
+    background-color: rgba(245, 179, 0, 0.1); /* Light golden yellow section */
+    border-radius: 0.5rem;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    max-width: 700px;
+  }
+  
+  .sectionTitle {
+    color: #f5b300;
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+  
+  .gameGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .gameCard {
+    background-color: rgba(245, 179, 0, 0.2); /* Lighter golden yellow card */
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+  }
+  
+  .gameCard:hover {
+    border-color: #f5b300;
+    background-color: rgba(245, 179, 0, 0.3);
+  }
+  
+  .gameCard.selected {
+    border-color: #4b2e83;
+    background-color: rgba(75, 46, 131, 0.1);
+  }
+  
+  .opponent {
+    font-weight: bold;
+    color: #371d63;
+    margin-bottom: 0.5rem;
+  }
+  
+  .gameDate {
+    color: #6b7280;
+    font-size: 0.9rem;
+    margin-bottom: 0.25rem;
+  }
+  
+  .winRate {
+    color: #4b2e83;
+    font-size: 0.9rem;
+  }
+  
+  .predictionButtons {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    justify-content: center;
+  }
+  
+  .predictionButton {
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.375rem;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+  
+  .predictionButton.win {
+    background-color: #4b2e83;
+    color: #f5b300;
+  }
+  
+  .predictionButton.lose {
+    background-color: #d32f2f; /* Red for lose */
+    color: #fff;
+  }
+  
+  .predictionButton.unselected {
+    background-color: #e0e0e0;
+    color: #6b7280;
+  }
+  
+  .bidAmountLabel {
+    display: block;
+    color: #f5b300;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+  
+  .bidAmountInput {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 0.375rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .potentialWinnings {
+    background-color: rgba(75, 46, 131, 0.05); /* Light purple */
+    padding: 1rem;
+    border-radius: 0.375rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+  
+  .potentialWinningsTitle {
+    color: #4b2e83;
+    font-size: 0.9rem;
+    margin-bottom: 0.25rem;
+  }
+  
+  .potentialWinningsAmount {
+    color: #4b2e83;
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  .placeBidButton {
+    background-color: #4b2e83;
+    color: #f5b300;
+    padding: 1rem 2rem;
+    border-radius: 0.375rem;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s ease;
+    width: 100%;
+  }
+  
+  .placeBidButton:hover {
+    background-color: #371d63;
+  }
+  
+  .historicalStats {
+    background-color: rgba(75, 46, 131, 0.05); /* Light purple */
+    padding: 2rem;
+    border-radius: 0.5rem;
+    width: 100%;
+    max-width: 700px;
+    text-align: center;
+  }
+  
+  .statsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  
+  .statItem {
+    background-color: rgba(245, 179, 0, 0.1); /* Light golden yellow */
+    padding: 1rem;
+    border-radius: 0.375rem;
+  }
+  
+  .statLabel {
+    color: #4b2e83;
+    font-size: 0.8rem;
+    margin-bottom: 0.25rem;
+  }
+  
+  .statValue {
+    color: #4b2e83;
+    font-size: 1.2rem;
+    font-weight: bold;
+  }

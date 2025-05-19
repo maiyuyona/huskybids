@@ -14,21 +14,12 @@ const Sidebar = () => {
 
   const pathname = usePathname();
 
-  const isActivePath = (path) => pathname === path;
-
-  const getBackgroundColor = (path) => {
-    if (!isActivePath(path)) return ''; // No specific background on hover, handled by menuItem:hover
-
-    switch (path) {
-      case '/testingHome':
-      case '/new-bid':
-      case '/tasks':
-      case '/leaderboard':
-        return styles.active; // Apply the active style
-      default:
-        return '';
-    }
-  };
+  const menuItems = [
+    { label: 'Dashboard', href: '/testingHome', icon: 'dashboard' },
+    { label: 'New Bid', href: '/new-bid', icon: 'add_circle' },
+    { label: 'Tasks', href: '/daily-tasks', icon: 'task' },
+    { label: 'Leaderboard', href: '/leaderboard', icon: 'leaderboard' },
+  ];
 
   const claimDailyBonus = () => {
     setBiscuits((prevBiscuits) => prevBiscuits + 100);
@@ -64,42 +55,17 @@ const Sidebar = () => {
 
       <nav className={styles.menu}>
         <ul>
-          <li>
-            <Link
-              href="/testingHome"
-              className={`${styles.menuItem} ${getBackgroundColor('/testingHome')}`}
-            >
-              <span className="material-icons">dashboard</span>
-              <span>Dashboard</span>
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="/new-bid"
-              className={`${styles.menuItem} ${getBackgroundColor('/new-bid')}`}
-            >
-              <span className="material-icons">add_circle</span>
-              <span>New Bid</span>
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="/tasks"
-              className={`${styles.menuItem} ${getBackgroundColor('/tasks')}`}
-            >
-              <span className="material-icons">task</span>
-              <span>Tasks</span>
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="/leaderboard"
-              className={`${styles.menuItem} ${getBackgroundColor('/leaderboard')}`}
-            >
-              <span className="material-icons">leaderboard</span>
-              <span>Leaderboard</span>
-            </Link>
-          </li>
+          {menuItems.map((item) => (
+            <li key={item.label}>
+              <Link
+                href={item.href}
+                className={`${styles.menuItem} ${pathname === item.href ? styles.active : ''}`}
+              >
+                <span className="material-icons">{item.icon}</span>
+                <span>{item.label}</span>
+              </Link>
+            </li>
+          ))}
         </ul>
       </nav>
 

@@ -1,50 +1,29 @@
 export const SAMPLE_GAMES = [
     {
         id: 1,
-        opponent: 'Michigan State',
-        date: '2024-08-31',
+        opponent: 'Northwestern',
+        date: '2025-05-23',
         time: '3:30 PM',
         location: 'Husky Stadium',
         isHome: true,
-        week: 1
+        week: 4
     },
     {
         id: 2,
-        opponent: 'Oregon',
-        date: '2024-09-14',
+        opponent: 'Rutgers',
+        date: '2025-05-21',
         time: '7:00 PM',
-        location: 'Husky Stadium',
-        isHome: true,
-        week: 3
-    },
-    {
-        id: 3,
-        opponent: 'USC',
-        date: '2024-09-28',
-        time: '4:00 PM',
-        location: 'Los Angeles Memorial Coliseum',
+        location: 'SHI Stadium',
         isHome: false,
         week: 5
     },
+    {
+        id: 3,
+        opponent: 'Michigan',
+        date: '2025-05-19',
+        time: '4:00 PM',
+        location: 'Husky Stadium',
+        isHome: false,
+        week: 6
+    },
 ];
-
-export const HISTORICAL_DATA = {
-    'Michigan State': {
-        wins: 3,
-        losses: 2,
-        winPercentage: 0.60,
-        odds: 1.8 // Higher odds mean better payout for correct prediction
-    },
-    'Oregon': {
-        wins: 4,
-        losses: 6,
-        winPercentage: 0.40,
-        odds: 2.2
-    },
-    'USC': {
-        wins: 5,
-        losses: 5,
-        winPercentage: 0.50,
-        odds: 2.0
-    }
-}; 

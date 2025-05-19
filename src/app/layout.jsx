@@ -1,25 +1,24 @@
-// src/app/layout.js
-import { ClerkProvider } from '@clerk/nextjs';
 import { Inter } from 'next/font/google';
-import { BiscuitProvider } from './Components/BiscuitContext';
-import ClientLayout from './Components/ClientLayout'; // Import the ClientLayout
+import './globals.css';
+import { ConvexClientProvider } from './ConvexClientProvider'; // Adjust path if needed
+import { ClerkProvider } from '@clerk/nextjs';
 
 const inter = Inter({ subsets: ['latin'] });
 
-const RootLayout = ({ children }) => {
-  return (
-    <ClerkProvider>
-      <BiscuitProvider>
-        <html lang="en" className={inter.className}>
-          <body className="bg-background">
-            <ClientLayout>
-              {children}
-            </ClientLayout>
-          </body>
-        </html>
-      </BiscuitProvider>
-    </ClerkProvider>
-  );
+// Define metadata as a plain JavaScript object
+export const metadata = {
+  title: 'HuskyBids',
+  description: 'A Husky Bids website',
 };
 
-export default RootLayout;
+export default function RootLayout({ children }) {
+  return (
+    <html lang="en">
+      <body className={`${inter.className} bg-background`}>
+        <ClerkProvider>
+          <ConvexClientProvider>{children}</ConvexClientProvider>
+        </ClerkProvider>
+      </body>
+    </html>
+  );
+}

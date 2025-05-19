@@ -1,163 +1,159 @@
 "use client";
 
-import React, { useState } from "react";
-import { SAMPLE_GAMES, HISTORICAL_DATA } from "../data/games";
+import React, { useState, useEffect } from "react";
+import { SAMPLE_GAMES } from "../data/games";
+import styles from "./new-bid.module.css";
+import { useBiscuit } from "../Components/BiscuitContext";
+import { useUser } from "@clerk/nextjs"; // Import useUser
 
 const NewBidPage = () => {
+  const { biscuits, setBiscuits } = useBiscuit();
+  const { userId } = useUser(); // Get the Clerk User ID
   const [selectedGame, setSelectedGame] = useState(null);
   const [bidAmount, setBidAmount] = useState("");
-  const [prediction, setPrediction] = useState("win"); // 'win' or 'lose'
+  const [prediction, setPrediction] = useState(null); // 'win', 'lose', or null
+  const [canBet, setCanBet] = useState(false);
+  const [currentTime, setCurrentTime] = useState(new Date());
 
-  const calculatePotentialWinnings = () => {
-    if (!selectedGame || !bidAmount) return 0;
-    const odds = HISTORICAL_DATA[selectedGame.opponent].odds;
-    return Math.round(Number(bidAmount) * odds);
-  };
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 1000);
+    return () => clearInterval(intervalId);
+  }, []);
 
-  const handlePlaceBid = () => {
-    if (!selectedGame || !bidAmount) {
-      alert("Please select a game and enter bid amount");
+  useEffect(() => {
+    if (selectedGame) {
+      const gameDate = new Date(selectedGame.date);
+      const bettingWindowStart = new Date(gameDate);
+      bettingWindowStart.setDate(gameDate.getDate() - 7);
+      const gameEnd = new Date(gameDate);
+      gameEnd.setHours(parseInt(selectedGame.time.split(':')[0]) + 2, parseInt(selectedGame.time.split(':')[1]));
+
+      setCanBet(currentTime >= bettingWindowStart && currentTime < gameEnd);
+    } else {
+      setCanBet(false);
+    }
+  }, [selectedGame, currentTime]);
+
+  const handlePlaceBid = async () => {
+    if (!selectedGame || !bidAmount || !prediction) {
+      alert("Please select a game, enter bid amount, and your prediction.");
       return;
     }
 
-    // In a real app, this would make an API call to place the bid
-    const winnings = calculatePotentialWinnings();
-    alert(`Bid placed successfully!
-        Game: UW vs ${selectedGame.opponent}
-        Bid Amount: ${bidAmount} Biscuits
-        Your Prediction: UW will ${prediction}
-        Potential Winnings: ${winnings} Biscuits`);
+    if (!canBet) {
+      alert("Bidding is currently closed for this game.");
+      return;
+    }
+
+    if (!userId) {
+      alert("You must be signed in to place a bid.");
+      return;
+    }
+
+    const bidData = {
+      userId: userId, // Include the Clerk User ID
+      gameId: selectedGame.id,
+      bidAmount: Number(bidAmount),
+      prediction,
+    };
+
+    try {
+      const response = await fetch('/api/place-bid', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(bidData),
+      });
+
+      if (response.ok) {
+        setBiscuits((prevBiscuits) => prevBiscuits - Number(bidAmount));
+        alert(`Bid placed successfully!
+            Game: UW vs ${selectedGame.opponent}
+            Bid Amount: ${bidAmount} Biscuits
+            Your Prediction: UW will ${prediction}`);
+        setSelectedGame(null);
+        setBidAmount("");
+        setPrediction(null);
+      } else {
+        const errorData = await response.json();
+        alert(`Failed to place bid: ${errorData?.error || 'Something went wrong'}`);
+      }
+    } catch (error) {
+      console.error("Error placing bid:", error);
+      alert("Failed to place bid. Please try again.");
+    }
   };
 
   return (
-    <div className="p-8">
-      <h1 className="text-3xl font-bold text-purple-900 mb-8">
-        Place a New Bid
-      </h1>
+    <div className={styles.container}>
+      <header className={styles.header}>
+        <h1 className={styles.title}>Place a New Bid</h1>
+      </header>
 
-      {/* Game Selection */}
-      <div className="bg-white rounded-lg shadow-md p-6 mb-8">
-        <h2 className="text-xl font-semibold mb-4">Select Game</h2>
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+      <div className={styles.bidSection}>
+        <h2 className={styles.sectionTitle}>Select Game</h2>
+        <div className={styles.gameGrid}>
           {SAMPLE_GAMES.map((game) => (
             <div
               key={game.id}
               onClick={() => setSelectedGame(game)}
-              className={`p-4 rounded-lg cursor-pointer border-2 transition-colors ${
-                selectedGame?.id === game.id
-                  ? "border-purple-600 bg-purple-50"
-                  : "border-gray-200 hover:border-purple-300"
-              }`}
+              className={`${styles.gameCard} ${selectedGame?.id === game.id ? styles.selected : ""}`}
             >
-              <div className="font-semibold">vs {game.opponent}</div>
-              <div className="text-sm text-gray-600">{game.date}</div>
-              <div className="text-sm text-purple-600 mt-2">
-                Win Rate:{" "}
-                {(HISTORICAL_DATA[game.opponent].winPercentage * 100).toFixed(
-                  1
-                )}
-                %
-              </div>
+              <div className={styles.opponent}>vs {game.opponent}</div>
+              <div className={styles.gameDate}>{game.date} - {game.time}</div>
+              <div className={styles.winRate}>Week: {game.week}</div>
             </div>
           ))}
         </div>
       </div>
 
-      {/* Bid Details */}
       {selectedGame && (
-        <div className="bg-white rounded-lg shadow-md p-6 mb-8">
-          <h2 className="text-xl font-semibold mb-4">Bid Details</h2>
+        <div className={styles.bidSection}>
+          <h2 className={styles.sectionTitle}>Place Your Bid</h2>
 
-          {/* Prediction Selection */}
-          <div className="mb-6">
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Your Prediction
-            </label>
-            <div className="flex gap-4">
-              <button
-                onClick={() => setPrediction("win")}
-                className={`px-4 py-2 rounded ${
-                  prediction === "win"
-                    ? "bg-purple-600 text-white"
-                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                }`}
-              >
-                UW Will Win
-              </button>
-              <button
-                onClick={() => setPrediction("lose")}
-                className={`px-4 py-2 rounded ${
-                  prediction === "lose"
-                    ? "bg-purple-600 text-white"
-                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                }`}
-              >
-                UW Will Lose
-              </button>
-            </div>
+          <div className={styles.predictionButtons}>
+            <button
+              onClick={() => setPrediction("win")}
+              className={`${styles.predictionButton} win ${prediction === "win" ? "" : styles.unselected}`}
+              disabled={!canBet}
+            >
+              UW Will Win
+            </button>
+            <button
+              onClick={() => setPrediction("lose")}
+              className={`${styles.predictionButton} lose ${prediction === "lose" ? "" : styles.unselected}`}
+              disabled={!canBet}
+            >
+              UW Will Lose
+            </button>
           </div>
 
-          {/* Bid Amount */}
-          <div className="mb-6">
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+          <div className="mb-4">
+            <label htmlFor="bidAmount" className={styles.bidAmountLabel}>
               Bid Amount (Biscuits)
             </label>
             <input
               type="number"
+              id="bidAmount"
               value={bidAmount}
               onChange={(e) => setBidAmount(e.target.value)}
-              className="w-full p-2 border rounded focus:ring-purple-500 focus:border-purple-500"
+              className={styles.bidAmountInput}
               placeholder="Enter amount"
               min="1"
+              disabled={!canBet}
             />
-          </div>
-
-          {/* Potential Winnings */}
-          <div className="mb-6 p-4 bg-purple-50 rounded-lg">
-            <div className="text-sm text-purple-700">Potential Winnings</div>
-            <div className="text-2xl font-bold text-purple-900">
-              {calculatePotentialWinnings()} Biscuits
-            </div>
           </div>
 
           <button
             onClick={handlePlaceBid}
-            className="w-full bg-purple-600 text-white py-3 rounded-lg hover:bg-purple-700 transition-colors"
+            className={styles.placeBidButton}
+            disabled={!canBet || !prediction || !bidAmount}
           >
-            Place Bid
+            {canBet ? "Place Bid" : "Bidding Closed"}
           </button>
-        </div>
-      )}
-
-      {/* Historical Stats */}
-      {selectedGame && (
-        <div className="bg-white rounded-lg shadow-md p-6">
-          <h2 className="text-xl font-semibold mb-4">
-            Historical Stats vs {selectedGame.opponent}
-          </h2>
-          <div className="grid grid-cols-3 gap-4 text-center">
-            <div className="p-4 bg-purple-50 rounded-lg">
-              <div className="text-sm text-purple-700">Wins</div>
-              <div className="text-2xl font-bold text-purple-900">
-                {HISTORICAL_DATA[selectedGame.opponent].wins}
-              </div>
-            </div>
-            <div className="p-4 bg-purple-50 rounded-lg">
-              <div className="text-sm text-purple-700">Losses</div>
-              <div className="text-2xl font-bold text-purple-900">
-                {HISTORICAL_DATA[selectedGame.opponent].losses}
-              </div>
-            </div>
-            <div className="p-4 bg-purple-50 rounded-lg">
-              <div className="text-sm text-purple-700">Win Rate</div>
-              <div className="text-2xl font-bold text-purple-900">
-                {(
-                  HISTORICAL_DATA[selectedGame.opponent].winPercentage * 100
-                ).toFixed(1)}
-                %
-              </div>
-            </div>
-          </div>
         </div>
       )}
     </div>

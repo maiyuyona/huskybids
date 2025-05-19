@@ -1,0 +1,153 @@
+.container {
+    background-color: #371d63; /* Dark purple background */
+    min-height: 100vh;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .header {
+    background-color: rgba(245, 179, 0, 0.1); /* Light golden yellow header */
+    border-radius: 0.5rem;
+    padding: 1.5rem 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    text-align: center;
+  }
+  
+  .title {
+    color: #f5b300; /* Golden yellow title */
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 2rem;
+  }
+  
+  .podium {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 2rem;
+    margin-bottom: 3rem;
+    width: 100%;
+    max-width: 700px;
+  }
+  
+  .podiumPlace {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .podiumUsername {
+    color: #f5b300;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+  
+  .podiumRankBox {
+    background-color: #e0e0e0; /* Light gray podium base */
+    border-radius: 0.5rem 0.5rem 0 0;
+    text-align: center;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .podiumRank {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #4b2e83; /* Dark purple rank number */
+    margin-bottom: 0.5rem;
+  }
+  
+  .podiumBiscuits {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-weight: bold;
+    color: #4b2e83;
+  }
+  
+  .firstPlace .podiumRankBox {
+    background-color: #f5b300; /* Golden yellow for first place */
+    color: #371d63; /* Dark purple for first place text */
+  }
+  
+  .firstPlace .podiumRank {
+    color: #371d63;
+  }
+  
+  .firstPlace .podiumUsername {
+    color: #f5b300;
+  }
+  
+  .firstPlace .podiumCrown {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .rankingsTable {
+    background-color: rgba(245, 179, 0, 0.1); /* Light golden yellow table background */
+    border-radius: 0.5rem;
+    overflow: hidden;
+    width: 100%;
+    max-width: 800px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .rankingsTable thead {
+    background-color: #4b2e83; /* Dark purple table header */
+    color: #f5b300; /* Golden yellow table header text */
+  }
+  
+  .rankingsTable th {
+    padding: 1rem 1.5rem;
+    text-align: left;
+    font-weight: bold;
+  }
+  
+  .rankingsTable tbody tr {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  }
+  
+  .rankingsTable tbody tr:last-child {
+    border-bottom: none;
+  }
+  
+  .rankingsTable td {
+    padding: 1rem 1.5rem;
+  }
+  
+  .rankingsTable .rankCell {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .rankingsTable .rankCrown {
+    font-size: 1rem;
+  }
+  
+  .rankingsTable .biscuitCell {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.3rem;
+  }
+  
+  .rankingsTable tbody tr:nth-child(-n+3) {
+    background-color: rgba(75, 46, 131, 0.05); /* Light purple for top 3 rows */
+  }
+  
+  .rankingsTable tbody tr:hover {
+    background-color: rgba(245, 179, 0, 0.05); /* Light golden yellow on hover */
+  }
+  
+  .winRateCell,
+  .totalBidsCell {
+    text-align: right;
+  }
