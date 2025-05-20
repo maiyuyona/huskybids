@@ -9,16 +9,4 @@ HuskyBids allows users to:
 - View leaderboards and personal betting history
 - Explore and learn about various UW sports
 
-## Tech Stack
- For authentication, we integrated Clerk for login, signup, and user session management with support for OAuth and prebuilt UI components. Our backend is powered by Convex, a serverless platform that enables us to manage real-time data storage and business logic using TypeScript. Convex handles user accounts, bet history, game results, and leaderboard data while automatically syncing changes across users. The frontend was developed using React.js for a dynamic, component-based user interface, styled with Tailwind CSS for consistent, responsive design, and structured with semantic HTML. 
-
-## Install + Running the Project
-Open a new terminal and run the application with the following command:
-```
-$ npm run dev
-```
-Then navigate to:
-```
-localhost:3000/dashboard
-```
-
+## 
