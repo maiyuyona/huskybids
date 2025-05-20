@@ -66,14 +66,13 @@
   text-align: left;
   font-size: 1em;
   color: #333;
-  margin-top: 4px;
 }
 
 .authButton:hover {
   background-color: #e6c926;
 }
 
-/* .logoutButton {
+.logoutButton {
   width: 100%;
   padding: 8px 16px;
   background-color: transparent;
@@ -91,7 +90,7 @@
   background-color: transparent;
   color: #333;
   box-shadow: 0 0 0 2px black;
-} */
+}
 
 .menu li a:hover,
 

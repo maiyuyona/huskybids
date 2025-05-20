@@ -70,4 +70,4 @@ const SettingsSidebar = ({ isSidebarOpen, toggleSidebar, username }) => {
   );
 };
 
-export default SettingsSidebar;
+export default SettingsSidebar; 

@@ -51,20 +51,17 @@ const FrameHome = () => {
   };
 
   return (
-    <div className="flex flex-col w-full h-screen bg-[#4b2e83] overflow-hidden">
-      {/* Main Content Area */}
-      <div className="flex flex-col items-center w-full h-full p-2 md:p-4 box-border">
+    <div className="flex w-full h-screen overflow-hidden">
+      {/* Main Content Area - Scrollable and Centered */}
+      <div className="flex flex-col items-center w-[80%] py-8 overflow-y-auto mx-auto pr-[20%]">
         {/* Scrollable Date Bar */}
-        <div className="relative flex items-center justify-center w-full max-w-[95vw] md:max-w-[90vw] lg:max-w-[1100px] mb-4">
-          <button 
-            onClick={() => scroll("left")} 
-            className="absolute left-0 z-10 bg-[#4b2e83]/70 rounded-full p-1 hover:bg-[#4b2e83]"
-          >
-            <ChevronLeft size={24} color="#c5b4e3" />
+        <div className="relative flex items-center justify-center mb-8 w-full">
+          <button onClick={() => scroll("left")} className="absolute left-0 z-10">
+            <ChevronLeft size={32} color="#c5b4e3" />
           </button>
           <div
             ref={scrollRef}
-            className="flex overflow-x-scroll space-x-2 w-full px-8 scrollbar-hide"
+            className="flex overflow-x-scroll space-x-4 w-[700px] px-12 scrollbar-hide"
             style={{
               scrollbarWidth: "none",
               msOverflowStyle: "none",
@@ -76,9 +73,9 @@ const FrameHome = () => {
               <div
                 key={index}
                 onClick={() => handleDateClick(date)}
-                className={`cursor-pointer px-2 py-2 rounded-lg text-center transition-all duration-300 min-w-[80px] flex-shrink-0 scroll-snap-align-center ${
+                className={`cursor-pointer px-4 py-2 rounded-lg text-center transition-all duration-300 min-w-[100px] flex-shrink-0 scroll-snap-align-center ${
                   date.isSame(selectedDate, "day")
-                    ? "bg-[#c5b4e3] text-[#4b2e83] font-bold scale-105"
+                    ? "bg-[#c5b4e3] text-[#4b2e83] font-bold scale-110"
                     : "text-[#c5b4e3] hover:bg-[#5c3a94]"
                 }`}
               >
@@ -86,23 +83,30 @@ const FrameHome = () => {
               </div>
             ))}
           </div>
-          <button 
-            onClick={() => scroll("right")} 
-            className="absolute right-0 z-10 bg-[#4b2e83]/70 rounded-full p-1 hover:bg-[#4b2e83]"
-          >
-            <ChevronRight size={24} color="#c5b4e3" />
+          <button onClick={() => scroll("right")} className="absolute right-0 z-10">
+            <ChevronRight size={32} color="#c5b4e3" />
           </button>
         </div>
 
-        <div className="text-start text-white text-lg md:text-xl mb-2 w-full max-w-[95vw] md:max-w-[90vw] lg:max-w-[1100px]">
+        <div className="text-start text-white text-2xl mb-8">
           Events for {selectedDate.format("MMMM DD, YYYY")}
         </div>
 
-        <div className="bg-[#4b2e83] overflow-hidden w-full max-w-[95vw] md:max-w-[90vw] lg:max-w-[1100px] flex-1 relative rounded-xl border-2 border-[#c5b4e3]">
-          <div className="absolute w-full text-center top-1/2 transform -translate-y-1/2 text-white text-lg md:text-xl">
+        <div className="bg-[#4b2e83] overflow-hidden w-full max-w-[1360px] h-[857px] relative rounded-2xl border-4 border-[#c5b4e3]">
+          <div className="absolute w-full text-center top-1/2 transform -translate-y-1/2 text-white text-xl">
             Content related to {selectedDate.format("MMM DD")} will be displayed here.
           </div>
         </div>
+      </div>
+
+      {/* Right Menu - Fixed */}
+      <div className="w-[20%] bg-primary-purple p-6 text-white rounded-l-2xl overflow-hidden fixed right-0 top-0 h-screen">
+        <h2 className="text-xl font-bold mb-4">right side stuff</h2>
+        <ul className="space-y-2">
+          <li className="hover:text-[#c5b4e3] cursor-pointer">betting history</li>
+          <li className="hover:text-[#c5b4e3] cursor-pointer">...</li>
+          <li className="hover:text-[#c5b4e3] cursor-pointer">...</li>
+        </ul>
       </div>
 
       <style jsx>{`
