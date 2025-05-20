@@ -5,22 +5,20 @@
   position: fixed;
   top: 0;
   right: 0; /* Changed to 0 */
-  /* transition: right 0.3s ease; */
   z-index: 999;
   box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+  padding-top: 20px; /* Add some top padding to space from the very top */
 }
-
-/* .sidebar.open {
-  right: 0;
-} */ /* Removed the .open style */
 
 .sidebarHeader {
   padding: 20px;
   text-align: center;
+  margin-bottom: 20px; /* Add some space below the header */
 }
 
 .userPicture {
   cursor: pointer;
+  margin-bottom: 10px; /* Add space below the profile picture/circle */
 }
 
 .userPicture .grayCircle {
@@ -32,9 +30,9 @@
 }
 
 .username {
-  margin-top: 10px;
+  margin-top: 0; /* Adjust margin to be closer to the picture */
   font-size: 1.2em;
-  cursor: pointer;
+  text-align: center; /* Center the username */
 }
 
 .menu {
@@ -58,14 +56,15 @@
 
 .authButton {
   width: 100%;
-  padding: 8px 16px;
+  padding: 10px 20px; /* Slightly increase padding for better touch targets */
   background-color: #eecf41;
   border: 1px solid #333;
   border-radius: 4px;
   cursor: pointer;
-  text-align: left;
+  text-align: center; /* Center the button text */
   font-size: 1em;
   color: #333;
+  margin-bottom: 8px; /* Add some space between buttons */
 }
 
 .authButton:hover {
@@ -74,16 +73,16 @@
 
 .logoutButton {
   width: 100%;
-  padding: 8px 16px;
+  padding: 10px 20px; /* Slightly increase padding */
   background-color: transparent;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  text-align: left;
+  text-align: center; /* Center the text */
   font-size: 1em;
-  color: #333; 
+  color: #333;
   margin-top: 10px;
-  transition: all 0.2s ease; 
+  transition: all 0.2s ease;
 }
 
 .logoutButton:hover {
@@ -93,7 +92,6 @@
 }
 
 .menu li a:hover,
-
 .menu li button:hover {
   color: #333;
   background-color: transparent;
@@ -107,5 +105,5 @@
   width: 100%;
   text-align: left;
   cursor: pointer;
+  padding: 10px 20px; /* Ensure consistent padding with links */
 }
-
