@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import BiscuitIcon from '../Components/BiscuitIcon'; // Assuming BiscuitIcon is in this path
 
 const TasksPage = () => {
-    const [biscuits, setBiscuits] = useState(3100); // Initial balance, consistent with new-bid
+    const [biscuits, setBiscuits] = useState(3300); // Initial balance, consistent with new-bid
     const [completedTasks, setCompletedTasks] = useState({}); // To track completed tasks by ID
 
     // Load biscuits and completed tasks from localStorage on component mount

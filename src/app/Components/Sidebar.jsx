@@ -47,15 +47,15 @@ const Sidebar = () => {
             </Link>
           </li>
           <li>
-            <Link href="/leaderboard" className={`flex items-center space-x-2 p-2 rounded transition-colors font-medium ${getBackgroundColor('/leaderboard')}`}>
-              <span className="material-icons">leaderboard</span>
-              <span>Leaderboard</span>
-            </Link>
-          </li>
-          <li>
             <Link href="/betting-history" className={`flex items-center space-x-2 p-2 rounded transition-colors font-medium ${getBackgroundColor('/betting-history')}`}>
               <span className="material-icons">history</span>
               <span>Betting History</span>
+            </Link>
+          </li>
+          <li>
+            <Link href="/leaderboard" className={`flex items-center space-x-2 p-2 rounded transition-colors font-medium ${getBackgroundColor('/leaderboard')}`}>
+              <span className="material-icons">leaderboard</span>
+              <span>Leaderboard</span>
             </Link>
           </li>
         </ul>
