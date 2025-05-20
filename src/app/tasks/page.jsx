@@ -1,9 +1,32 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import BiscuitIcon from '../Components/BiscuitIcon'; // Assuming BiscuitIcon is in this path
 
 const TasksPage = () => {
-    const [shareCompleted, setShareCompleted] = useState(false);
+    const [biscuits, setBiscuits] = useState(3100); // Initial balance, consistent with new-bid
+    const [completedTasks, setCompletedTasks] = useState({}); // To track completed tasks by ID
+
+    // Load biscuits and completed tasks from localStorage on component mount
+    useEffect(() => {
+        const savedBiscuits = localStorage.getItem('tasksPageBiscuits');
+        if (savedBiscuits) {
+            setBiscuits(Number(savedBiscuits));
+        }
+        const savedCompletedTasks = localStorage.getItem('completedTasks');
+        if (savedCompletedTasks) {
+            setCompletedTasks(JSON.parse(savedCompletedTasks));
+        }
+    }, []);
+
+    // Save biscuits and completed tasks to localStorage whenever they change
+    useEffect(() => {
+        localStorage.setItem('tasksPageBiscuits', biscuits.toString());
+    }, [biscuits]);
+
+    useEffect(() => {
+        localStorage.setItem('completedTasks', JSON.stringify(completedTasks));
+    }, [completedTasks]);
 
     const tasks = [
         {
@@ -29,44 +52,71 @@ const TasksPage = () => {
         }
     ];
 
-    const handleShare = async (platform) => {
-        // In a real app, this would integrate with social media APIs
+    const handleCompleteTask = async (taskId, reward, taskTitle) => {
+        if (completedTasks[taskId]) {
+            alert(`You have already completed "${taskTitle}".`);
+            return;
+        }
+
         try {
-            // Simulate sharing
-            await new Promise(resolve => setTimeout(resolve, 1000));
-            setShareCompleted(true);
-            // Here you would update the user's biscuit balance
-            alert(`Shared on ${platform}! You earned some biscuits!`);
+            // Simulate task completion (e.g., API call, social media integration)
+            // In a real app, this would integrate with social media APIs or backend
+            await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate async work
+
+            // Update biscuit balance
+            setBiscuits(prev => prev + reward);
+
+            // Mark task as completed
+            setCompletedTasks(prev => ({
+                ...prev,
+                [taskId]: true
+            }));
+
+            alert(`"${taskTitle}" completed! You earned ${reward} biscuits!`);
         } catch (error) {
-            alert('Error sharing. Please try again.');
+            alert('Error completing task. Please try again.');
         }
     };
 
     return (
-        <div className="p-8">
+        <div className="p-8 relative"> {/* Added relative for absolute positioning of balance */}
+            {/* Biscuit Balance Display on Top Right */}
+            <div className="absolute top-4 right-4 z-10 flex items-center gap-2 bg-yellow-400 px-3 py-1 rounded-full shadow-md border-2 border-purple-900">
+                <BiscuitIcon size={20} className="text-purple-900" />
+                <span className="font-bold text-purple-900">{biscuits} Biscuits</span>
+            </div>
+
             <h1 className="text-3xl font-bold text-purple-900 mb-8">Earn Biscuits</h1>
             
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                {tasks.map(task => (
-                    <div key={task.id} className="bg-white rounded-lg shadow-md p-6">
-                        <div className="flex items-center justify-between mb-4">
-                            <span className="material-icons text-purple-600 text-2xl">
-                                {task.icon}
-                            </span>
-                            <div className="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-medium">
-                                +{task.reward} Biscuits
+                {tasks.map(task => {
+                    const isTaskCompleted = completedTasks[task.id];
+                    return (
+                        <div key={task.id} className="bg-white rounded-lg shadow-md p-6">
+                            <div className="flex items-center justify-between mb-4">
+                                <span className="material-icons text-purple-600 text-2xl">
+                                    {task.icon}
+                                </span>
+                                <div className="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-medium">
+                                    +{task.reward} Biscuits
+                                </div>
                             </div>
+                            <h3 className="text-xl font-semibold mb-2">{task.title}</h3>
+                            <p className="text-gray-600 mb-4">{task.description}</p>
+                            <button
+                                onClick={() => handleCompleteTask(task.id, task.reward, task.title)}
+                                className={`w-full py-2 rounded transition-colors ${
+                                    isTaskCompleted
+                                        ? "bg-gray-400 text-gray-700 cursor-not-allowed"
+                                        : "bg-purple-600 text-white hover:bg-purple-700"
+                                }`}
+                                disabled={isTaskCompleted}
+                            >
+                                {isTaskCompleted ? "Completed" : "Complete Task"}
+                            </button>
                         </div>
-                        <h3 className="text-xl font-semibold mb-2">{task.title}</h3>
-                        <p className="text-gray-600 mb-4">{task.description}</p>
-                        <button
-                            onClick={() => handleShare(task.title)}
-                            className="w-full bg-purple-600 text-white py-2 rounded hover:bg-purple-700 transition-colors"
-                        >
-                            Complete Task
-                        </button>
-                    </div>
-                ))}
+                    );
+                })}
             </div>
 
             {/* Task Completion Tips */}
@@ -83,4 +133,4 @@ const TasksPage = () => {
     );
 };
 
-export default TasksPage; 
+export default TasksPage;
