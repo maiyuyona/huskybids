@@ -10,7 +10,7 @@ const BettingHistory = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [biscuits, setBiscuits] = useState(3100);
+  const [biscuits, setBiscuits] = useState(3300);
 
   // Load biscuits from localStorage on component mount
   useEffect(() => {
